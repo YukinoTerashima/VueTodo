@@ -33,6 +33,7 @@
           class="card"
           draggable="true"
           v-for="todo in doneTodo"
+          @dragstart="moveCard(todo)"
           :key="todo.name"
         >
           {{ todo.name }}
@@ -62,10 +63,14 @@ export default {
       this.$store.commit("cleanTodo");
     },
     moveCard(todo) {
-      this.movingCard = todo;
+      this.movingCard = todo.name;
     },
     dropCard(isDone) {
-      this.movingCard.isDone = isDone;
+      this.$store.commit("changeTodoState", {
+        target: this.movingCard,
+        status: isDone
+      });
+      this.movingCard = "";
     }
   },
   computed: {
