@@ -30,38 +30,30 @@ export default {
   name: "Home",
   data() {
     return {
-      newText: "",
-      todos: [
-        { name: "TODO1", isDone: false },
-        { name: "TODO2", isDone: true },
-        { name: "TODO3", isDone: false }
-      ]
+      newText: ""
     };
   },
   methods: {
-    addTodo(/** 指定がなかった時第一引数はイベントオブジェクト */) {
-      this.todos.push({
-        name: this.newText,
-        isDone: false
-      });
+    addTodo() {
+      this.$store.commit("addTodo", this.newText);
       this.newText = "";
     },
-
     deleteTodo(deleteTarget) {
-      // https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
-      this.todos = this.todos.filter(todo => todo.name !== deleteTarget.name); //Trueのやつが残る
+      this.$store.commit("deleteTodo", deleteTarget);
     },
-
     cleanTodo() {
-      this.todos = this.notDoneTodo;
+      this.$store.commit("cleanTodo");
     }
   },
   computed: {
-    doneTodo() {
-      return this.todos.filter(todo => todo.isDone);
+    todos() {
+      return this.$store.state.todos;
     },
     notDoneTodo() {
-      return this.todos.filter(todo => !todo.isDone);
+      return this.$store.getters.notDoneTodo;
+    },
+    doneTodo() {
+      return this.$store.getters.doneTodo;
     }
   }
 };
