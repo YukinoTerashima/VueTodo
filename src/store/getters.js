@@ -1,8 +1,11 @@
 export default {
   doneTodo(state) {
-    return state.todos.filter(todo => todo.isDone);
+    return state.tasks.filter(t => t.status === "done");
   },
-  notDoneTodo(state) {
-    return state.todos.filter(todo => !todo.isDone);
+  todo(state) {
+    return state.tasks.filter(t => t.status === "todo");
+  },
+  doingTodo(state) {
+    return state.tasks.filter(t => t.status === "doing");
   }
 };

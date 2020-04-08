@@ -24,33 +24,49 @@
       <div
         class="col"
         @dragover="$event.preventDefault()"
-        @drop="dropCard(false)"
+        @drop="dropCard('todo')"
       >
         <h2>ToDo</h2>
         <div
           class="card"
           draggable="true"
-          @dragstart="moveCard(todo)"
-          v-for="todo in notDoneTodo"
-          :key="todo.name"
+          @dragstart="moveCard(t)"
+          v-for="t in todo"
+          :key="t.name"
         >
-          {{ todo.name }}
+          {{ t.name }}
         </div>
       </div>
       <div
         class="col"
         @dragover="$event.preventDefault()"
-        @drop="dropCard(true)"
+        @drop="dropCard('doing')"
+      >
+        <h2>Doing</h2>
+        <div
+          class="card"
+          draggable="true"
+          v-for="t in doingTodo"
+          @dragstart="moveCard(t)"
+          :key="t.name"
+        >
+          {{ t.name }}
+        </div>
+      </div>
+      <div
+        class="col"
+        @dragover="$event.preventDefault()"
+        @drop="dropCard('done')"
       >
         <h2>Done <button @click="cleanTodo">Clean</button></h2>
         <div
           class="card"
           draggable="true"
-          v-for="todo in doneTodo"
-          @dragstart="moveCard(todo)"
-          :key="todo.name"
+          v-for="t in doneTodo"
+          @dragstart="moveCard(t)"
+          :key="t.name"
         >
-          {{ todo.name }}
+          {{ t.name }}
         </div>
       </div>
     </div>
@@ -79,23 +95,26 @@ export default {
     moveCard(todo) {
       this.movingCard = todo.name;
     },
-    dropCard(isDone) {
-      this.$store.commit("changeTodoState", {
+    dropCard(status) {
+      this.$store.commit("changetaskstate", {
         target: this.movingCard,
-        status: isDone
+        status: status
       });
       this.movingCard = "";
     }
   },
   computed: {
-    todos() {
-      return this.$store.state.todos;
+    tasks() {
+      return this.$store.state.tasks;
     },
-    notDoneTodo() {
-      return this.$store.getters.notDoneTodo;
+    todo() {
+      return this.$store.getters.todo;
     },
     doneTodo() {
       return this.$store.getters.doneTodo;
+    },
+    doingTodo() {
+      return this.$store.getters.doingTodo;
     }
   }
 };

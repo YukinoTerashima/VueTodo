@@ -5,16 +5,16 @@ describe("store", () => {
     describe("addTodo", () => {
       test("addTodoは未完状態のTODOを追加する", () => {
         const state = {
-          todos: [
-            { name: "a", isDone: true },
-            { name: "b", isDone: false }
+          tasks: [
+            { name: "a", status: "done" },
+            { name: "b", status: "todo" }
           ]
         };
         const expectedState = {
-          todos: [
-            { name: "a", isDone: true },
-            { name: "b", isDone: false },
-            { name: "c", isDone: false }
+          tasks: [
+            { name: "a", status: "done" },
+            { name: "b", status: "todo" },
+            { name: "c", status: "todo" }
           ]
         };
         mutations.addTodo(state, "c");
@@ -25,66 +25,66 @@ describe("store", () => {
     describe("deleteTodo", () => {
       test("deleteTodoは指定されたTODOの同じ名前のTODOをstateから削除する", () => {
         const state = {
-          todos: [
-            { name: "a", isDone: true },
-            { name: "b", isDone: false }
+          tasks: [
+            { name: "a", status: "done" },
+            { name: "b", status: "todo" }
           ]
         };
         const expectedState = {
-          todos: [{ name: "a", isDone: true }]
+          tasks: [{ name: "a", status: "done" }]
         };
-        mutations.deleteTodo(state, { name: "b", isDone: false });
+        mutations.deleteTodo(state, { name: "b", status: "todo" });
         expect(state).toEqual(expectedState);
       });
     });
 
     describe("cleanTodo", () => {
-      test("cleanTodoは全てのTODOをstateから削除する", () => {
+      test("cleanTodoはstatusがdoneのTODOをstateから削除する", () => {
         const state = {
-          todos: [
-            { name: "a", isDone: true },
-            { name: "b", isDone: false }
+          tasks: [
+            { name: "a", status: "done" },
+            { name: "b", status: "doing" }
           ]
         };
         const expectedState = {
-          todos: [{ name: "b", isDone: false }]
+          tasks: [{ name: "b", status: "doing" }]
         };
         mutations.cleanTodo(state);
         expect(state).toEqual(expectedState);
       });
     });
 
-    describe("changeTodoState", () => {
-      test("changeTodoStateはTODOの状態を指定したものに変える", () => {
+    describe("changetaskstate", () => {
+      test("changetaskstateはTODOの状態を指定したものに変える", () => {
         const state = {
-          todos: [
-            { name: "a", isDone: true },
-            { name: "b", isDone: false }
+          tasks: [
+            { name: "a", status: "done" },
+            { name: "b", status: "todo" }
           ]
         };
         const expectedState = {
-          todos: [
-            { name: "a", isDone: true },
-            { name: "b", isDone: true }
+          tasks: [
+            { name: "a", status: "done" },
+            { name: "b", status: "doing" }
           ]
         };
-        mutations.changeTodoState(state, { target: "b", status: true });
+        mutations.changetaskstate(state, { target: "b", status: "doing" });
         expect(state).toEqual(expectedState);
       });
-      test("changeTodoStateはTODOの状態を指定したものに変える 対象がなかったらなにもしない", () => {
+      test("changetaskstateはTODOの状態を指定したものに変える 対象がなかったらなにもしない", () => {
         const state2 = {
-          todos: [
-            { name: "a", isDone: true },
-            { name: "b", isDone: true }
+          tasks: [
+            { name: "a", status: "done" },
+            { name: "b", status: "doing" }
           ]
         };
         const expectedState2 = {
-          todos: [
-            { name: "a", isDone: true },
-            { name: "b", isDone: true }
+          tasks: [
+            { name: "a", status: "done" },
+            { name: "b", status: "doing" }
           ]
         };
-        mutations.changeTodoState(state2, { target: "c", status: true });
+        mutations.changetaskstate(state2, { target: "c", status: "done" });
         expect(state2).toEqual(expectedState2);
       });
     });

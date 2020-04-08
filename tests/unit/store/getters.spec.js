@@ -3,27 +3,44 @@ import getters from "@/store/getters";
 describe("store", () => {
   describe("getters", () => {
     describe("doneTodo", () => {
-      test("doneTodoは完了していない Todoのみを返す", () => {
+      test("doneTodoは完了済みの Todoのみを返す", () => {
         const state = {
-          todos: [
-            { name: "a", isDone: true },
-            { name: "b", isDone: false }
+          tasks: [
+            { name: "a", status: "done" },
+            { name: "b", status: "doing" },
+            { name: "c", status: "todo" }
           ]
         };
-        expect(getters.doneTodo(state)).toEqual([{ name: "a", isDone: true }]);
+        expect(getters.doneTodo(state)).toEqual([
+          { name: "a", status: "done" }
+        ]);
       });
     });
 
-    describe("notDoneTodo", () => {
-      test("doneTodoは完了している Todoのみを返す", () => {
+    describe("todo", () => {
+      test("todoは 未着手のTodoのみを返す", () => {
         const state = {
-          todos: [
-            { name: "a", isDone: true },
-            { name: "b", isDone: false }
+          tasks: [
+            { name: "a", status: "done" },
+            { name: "b", status: "doing" },
+            { name: "c", status: "todo" }
           ]
         };
-        expect(getters.notDoneTodo(state)).toEqual([
-          { name: "b", isDone: false }
+        expect(getters.todo(state)).toEqual([{ name: "c", status: "todo" }]);
+      });
+    });
+
+    describe("doingTodo", () => {
+      test("doingTodoは 着手済み・未完のTodoのみを返す", () => {
+        const state = {
+          tasks: [
+            { name: "a", status: "done" },
+            { name: "b", status: "doing" },
+            { name: "c", status: "todo" }
+          ]
+        };
+        expect(getters.doingTodo(state)).toEqual([
+          { name: "b", status: "doing" }
         ]);
       });
     });
