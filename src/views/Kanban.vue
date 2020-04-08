@@ -1,10 +1,24 @@
 <template>
   <div class="home">
     <h2>Add ToDo</h2>
-    <form @submit="addTodo">
+    <!-- <form @submit="addTodo">
       <input v-model="newText" type="text" />
       <button type="submit">作成</button>
-    </form>
+    </form> -->
+    <v-container>
+      <v-form @submit="addTodo">
+        <v-row>
+          <v-col cols="12" sm="6">
+            <v-text-field v-model="newText" label="新規ToDo" />
+          </v-col>
+          <v-col cols="12" sm="6">
+            <v-btn class="mx-2" fab dark color="indigo" @click="addTodo">
+              <v-icon dark>mdi-plus</v-icon>
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-form>
+    </v-container>
     <h2>ToDo</h2>
     <div class="wrapper">
       <div
