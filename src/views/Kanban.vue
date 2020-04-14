@@ -27,14 +27,8 @@
         @drop="dropCard('todo')"
       >
         <h2>ToDo</h2>
-        <div
-          class="card"
-          draggable="true"
-          @dragstart="moveCard(t)"
-          v-for="t in todo"
-          :key="t.name"
-        >
-          {{ t.name }}
+        <div v-for="t in todo" :key="t.name">
+          <card :task="t" v-on:moveCard="moveCard"></card>
         </div>
       </div>
       <div
@@ -43,14 +37,8 @@
         @drop="dropCard('doing')"
       >
         <h2>Doing</h2>
-        <div
-          class="card"
-          draggable="true"
-          v-for="t in doingTodo"
-          @dragstart="moveCard(t)"
-          :key="t.name"
-        >
-          {{ t.name }}
+        <div v-for="t in doingTodo" :key="t.name">
+          <card :task="t" v-on:moveCard="moveCard"> </card>
         </div>
       </div>
       <div
@@ -59,14 +47,8 @@
         @drop="dropCard('done')"
       >
         <h2>Done <button @click="cleanTodo">Clean</button></h2>
-        <div
-          class="card"
-          draggable="true"
-          v-for="t in doneTodo"
-          @dragstart="moveCard(t)"
-          :key="t.name"
-        >
-          {{ t.name }}
+        <div v-for="t in doneTodo" :key="t.name">
+          <card :task="t" v-on:moveCard="moveCard"></card>
         </div>
       </div>
     </div>
@@ -76,6 +58,8 @@
 <script>
 // https://developer.mozilla.org/ja/docs/Web/API/HTML_Drag_and_Drop_API
 // https://developer.mozilla.org/ja/docs/DragDrop/Drag_Operations
+// https://jp.vuejs.org/v2/guide/single-file-components.html
+import Card from "../components/Card.vue";
 export default {
   name: "Kanban",
   data() {
@@ -83,6 +67,9 @@ export default {
       newText: "",
       movingCard: undefined
     };
+  },
+  components: {
+    Card
   },
   methods: {
     addTodo() {
@@ -127,11 +114,5 @@ export default {
   height: 500px;
   width: 200px;
   border: solid black 1px;
-}
-.card {
-  width: calc(100% - 20px);
-  border: solid black 1px;
-  height: 50px;
-  margin: 5px;
 }
 </style>
