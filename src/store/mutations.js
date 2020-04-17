@@ -1,4 +1,8 @@
 export default {
+  browseTaskList(state, tasks) {
+    state.tasks = tasks;
+  },
+
   addTodo(state, newText) {
     state.tasks.push({
       name: newText,

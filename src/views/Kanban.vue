@@ -71,9 +71,13 @@ export default {
   components: {
     Card
   },
+  created() {
+    this.$store.dispatch("browseTaskList");
+  },
   methods: {
     addTodo() {
       this.$store.commit("addTodo", this.newText);
+      //this.$store.dispatch("addTodo", this.newText);
       this.newText = "";
     },
     cleanTodo() {
