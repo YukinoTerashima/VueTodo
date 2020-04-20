@@ -34,7 +34,6 @@
         </v-container>
       </ul>
       <h2>Doing</h2>
-      <button @click="cleanTodo">Clean</button>
       <ul>
         <li v-for="t in doingTodo" :key="t.name">
           <v-row align="center">
