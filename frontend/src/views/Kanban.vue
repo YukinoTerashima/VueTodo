@@ -1,57 +1,58 @@
 <template>
   <div class="home">
-    <h2>Add ToDo</h2>
-    <!-- <form @submit="addTodo">
-      <input v-model="newText" type="text" />
-      <button type="submit">作成</button>
-    </form> -->
     <v-container>
+      <v-row>
+        <h2>Add ToDo</h2>
+      </v-row>
       <v-form @submit="addTodo">
-        <v-row>
-          <v-col cols="12" sm="6">
+        <v-row
+          align="center"
+          justify="center"
+        >
+          <v-col cols="12" sm="4">
             <v-text-field v-model="newText" label="新規ToDo" />
           </v-col>
-          <v-col cols="12" sm="6">
-            <v-btn class="mx-2" fab dark color="indigo" @click="addTodo">
-              <v-icon dark>mdi-plus</v-icon>
-            </v-btn>
+          <v-col cols="12" sm="1">
+            <div class="add-btn">
+              <v-btn class="mx-2" fab small>
+                <v-icon dark>mdi-plus</v-icon>
+              </v-btn>
+            </div>
           </v-col>
+          <v-spacer />
         </v-row>
       </v-form>
+      <v-row>
+        <h2>Kanban</h2>
+      </v-row>
+      <v-row
+        align="center"
+        justify="center"
+      >
+        <v-col cols="12" sm="4">
+          <status-box status="todo" 
+                      :taskList="todo" 
+                      v-on:moveCard="moveCard" 
+                      v-on:dropCard="dropCard">
+          </status-box>
+        </v-col>
+        <v-col cols="12" sm="4">
+          <status-box status="doing" 
+                      :taskList="doing" 
+                      v-on:moveCard="moveCard" 
+                      v-on:dropCard="dropCard">
+          </status-box>
+        </v-col>
+        <v-col cols="12" sm="4">
+          <status-box status="done" 
+                      :taskList="done" 
+                      v-on:moveCard="moveCard" 
+                      v-on:dropCard="dropCard"
+                      v-on:cleanTodo="cleanTodo">
+          </status-box>
+        </v-col>
+      </v-row>
     </v-container>
-    <h2>ToDo</h2>
-    <div class="wrapper">
-      <div
-        class="col"
-        @dragover="$event.preventDefault()"
-        @drop="dropCard('todo')"
-      >
-        <h2>ToDo</h2>
-        <div v-for="t in todo" :key="t.name">
-          <card :task="t" v-on:moveCard="moveCard"></card>
-        </div>
-      </div>
-      <div
-        class="col"
-        @dragover="$event.preventDefault()"
-        @drop="dropCard('doing')"
-      >
-        <h2>Doing</h2>
-        <div v-for="t in doingTodo" :key="t.name">
-          <card :task="t" v-on:moveCard="moveCard"> </card>
-        </div>
-      </div>
-      <div
-        class="col"
-        @dragover="$event.preventDefault()"
-        @drop="dropCard('done')"
-      >
-        <h2>Done <button @click="cleanTodo">Clean</button></h2>
-        <div v-for="t in doneTodo" :key="t.name">
-          <card :task="t" v-on:moveCard="moveCard"></card>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -59,7 +60,8 @@
 // https://developer.mozilla.org/ja/docs/Web/API/HTML_Drag_and_Drop_API
 // https://developer.mozilla.org/ja/docs/DragDrop/Drag_Operations
 // https://jp.vuejs.org/v2/guide/single-file-components.html
-import Card from "../components/Card.vue";
+// import Card from "../components/Card.vue";
+import StatusBox from "../components/StatusBox.vue"
 export default {
   name: "Kanban",
   data() {
@@ -69,12 +71,12 @@ export default {
     };
   },
   components: {
-    Card
+    // Card,
+    StatusBox
   },
   methods: {
     addTodo() {
       this.$store.commit("addTodo", this.newText);
-      //this.$store.dispatch("addTodo", this.newText);
       this.newText = "";
     },
     cleanTodo() {
@@ -98,10 +100,10 @@ export default {
     todo() {
       return this.$store.getters.todo;
     },
-    doneTodo() {
+    done() {
       return this.$store.getters.doneTodo;
     },
-    doingTodo() {
+    doing() {
       return this.$store.getters.doingTodo;
     }
   }
@@ -111,9 +113,7 @@ export default {
 .wrapper {
   display: flex;
 }
-.col {
-  height: 500px;
-  width: 200px;
-  border: solid black 1px;
+.add-btn {
+  padding-top: 10px;
 }
 </style>
