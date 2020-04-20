@@ -14,7 +14,7 @@
           </v-col>
           <v-col cols="12" sm="1">
             <div class="add-btn">
-              <v-btn class="mx-2" fab small>
+              <v-btn class="mx-2" fab small @click="addTodo">
                 <v-icon dark>mdi-plus</v-icon>
               </v-btn>
             </div>

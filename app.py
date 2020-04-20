@@ -3,8 +3,8 @@ from flask import Flask, render_template, jsonify
 DEBUG = True
 
 app = Flask(__name__,
-            static_folder="../vue-todo/dist/static",
-            template_folder ="../vue-todo/dist")
+            static_folder="./frontend/dist/static",
+            template_folder ="./frontend/dist")
 
 app.config.from_object(__name__)
 
