@@ -30,25 +30,49 @@
         justify="center"
       >
         <v-col cols="12" sm="4">
-          <status-box status="todo" 
+          <status-box
                       :taskList="todo" 
-                      v-on:moveCard="moveCard" 
-                      v-on:dropCard="dropCard">
+                      @moveCard="moveCard" 
+                      @dropCard="dropCard('todo')">
+            <template v-slot:titlebar>
+              <v-toolbar-title>Todo</v-toolbar-title>
+            </template>
           </status-box>
         </v-col>
         <v-col cols="12" sm="4">
-          <status-box status="doing" 
+          <status-box
                       :taskList="doing" 
-                      v-on:moveCard="moveCard" 
-                      v-on:dropCard="dropCard">
+                      @moveCard="moveCard" 
+                      @dropCard="dropCard('doing')">
+            <template v-slot:titlebar>
+              <v-toolbar-title>Doing</v-toolbar-title>
+            </template>
           </status-box>
         </v-col>
         <v-col cols="12" sm="4">
-          <status-box status="done" 
+          <status-box
                       :taskList="done" 
-                      v-on:moveCard="moveCard" 
-                      v-on:dropCard="dropCard"
-                      v-on:cleanTodo="cleanTodo">
+                      @moveCard="moveCard" 
+                      @dropCard="dropCard('done')">
+            <template v-slot:titlebar>
+              <v-toolbar-title>Done</v-toolbar-title>
+              <v-spacer />
+              <v-tooltip right>
+                <template v-slot:activator="{ on }">
+                  <v-btn
+                    icon
+                    large
+                    v-on="{
+                      ...on,
+                      click: cleanTodo
+                    }"
+                  >
+                    <v-icon>mdi-trash-can-outline</v-icon>
+                  </v-btn>
+                </template>
+                <span>Clear</span>
+              </v-tooltip>
+            </template>
           </status-box>
         </v-col>
       </v-row>

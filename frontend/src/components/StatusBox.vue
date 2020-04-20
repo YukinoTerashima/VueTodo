@@ -11,30 +11,13 @@
             dark
             flat
           >
-            <v-toolbar-title>{{ showstatus }}</v-toolbar-title>
-            <v-spacer />
-            
-            <v-tooltip v-if="status==='done'" right>
-              <template v-slot:activator="{ on }">
-                <v-btn
-                  icon
-                  large
-                  v-on="{
-                    ...on,
-                    click: ()=> $emit('cleanTodo')
-                  }"
-                >
-                  <v-icon>mdi-cart-remove</v-icon>
-                </v-btn>
-              </template>
-              <span>Clear</span>
-            </v-tooltip>
+            <slot name="titlebar" />
           </v-toolbar>
           <v-card-text>
             <div
               class="col"
               @dragover="$event.preventDefault()"
-              @drop="$emit('dropCard', status)"
+              @drop="$emit('dropCard')"
             >
               <div v-for="task in taskList" :key="task.name">
                 <div class="card" 
@@ -54,15 +37,8 @@
 <script>
   export default {
     props: {
-      status : String,
       taskList: Array
     },
-    computed: {
-      showstatus() {
-        const showstatus = {"done":"Done", "doing":"Doing", "todo": "ToDo"}
-        return showstatus[this.status]
-      },
-    }
   }
 </script>
 
