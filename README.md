@@ -1,12 +1,39 @@
-# vue-todo
+# app-ToDo
 
-## Vue CLI の DL
+## ディレクトリ構成
+
+```
+├── README.md
+├── __pycache__
+│   └── run.cpython-37.pyc
+├── app.py
+├── backend
+│   └── venv
+├── frontend
+    ├── babel.config.js
+    ├── config
+    ├── dist
+    ├── jest.config.js
+    ├── node_modules
+    ├── package-lock.json
+    ├── package.json
+    ├── public
+    ├── src
+    ├── tests
+    └── vue.config.js
+ ```
+
+## フロントエンド
+
+### Vue CLI の DL
+
+[Vue CLI](https://cli.vuejs.org/)
 
 ```
 npm i -g @vue/cli
 ```
 
-## Vue プロジェクトの作成
+### Vue プロジェクトの作成
 
 ```
 # カレントディレクトリに Vue プロジェクトを作成する
@@ -22,7 +49,10 @@ Vue CLI v4.2.3
 ? Save this as a preset for future projects? (y/N) 
 ```
 
-## Storybook
+### Storybook
+
+まだ実行できてません。
+
 ```
 (base) MacBook-Air:vue-todo ynakamura$ vue add storybook
 
@@ -40,7 +70,8 @@ found 0 vulnerabilities
 ? Use Storybook Docs? No
 ```
 
-## vuetify
+### Vuetify
+[Vuetify](https://vuetifyjs.com/ja/)
 
 ```
 (base) MacBook-Air:vue-todo ynakamura$ vue add vuetify
@@ -72,37 +103,54 @@ found 0 vulnerabilities
  vuetify  Support Vuetify: https://github.com/sponsors/johnleider
 ```
 
-## 拡張機能
+### VS Code 拡張機能
 
 - Vue VS Code Extension Pack
 - Prettier - Code formatter
 
-## Project setup
+### Project setup
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+#### Compiles and hot-reloads for development
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+#### Compiles and minifies for production
 ```
 npm run build
 ```
 
-### Run your unit tests
+#### Run your unit tests
 ```
 npm run test:unit
 ```
 
-### Lints and fixes files
+#### Lints and fixes files
 ```
 npm run lint
 ```
 
-### Customize configuration
+#### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
+## バックエンド
+
+### flask
+
+[Flask](https://a2c.bitbucket.io/flask/)
+
+```
+(venv) (base) MacBook-Air:backend ynakamura$ pwd
+/Users/ynakamura/work/app-todo/backend
+(env) (base) MacBook-Air:backend ynakamura$ virtualenv -p python3 venv
+ created virtual environment CPython3.7.5.final.0-64 in 1318ms
+   creator CPython3Posix(dest=/Users/ynakamura/work/app-todo/backend/venv, clear=False, global=False)
+   seeder FromAppData(download=False, pip=latest, setuptools=latest, wheel=latest, via=copy, app_data_dir=/Users/ynakamura/Library/Application Support/virtualenv/seed-app-data/v1.0.1)
+   activators BashActivator,CShellActivator,FishActivator,PowerShellActivator,PythonActivator,XonshActivator
+ (env) (base) MacBook-Air:backend ynakamura$ source venv/bin/activate
+ (venv) (base) MacBook-Air:backend ynakamura$ pip install Flask
+ ```
