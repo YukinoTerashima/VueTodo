@@ -1,5 +1,23 @@
 # app-ToDo
 
+## セットアップ
+
+### フロントエンド
+```
+$ cd frontend
+$ npm install
+$ npm run build
+```
+
+### バックエンド
+```
+$ cd backend
+$ python3 -m venv venv
+$ source venv/bin/activate #環境によりけり
+$ pip install -r requirements.txt 
+$ python app.py 
+```
+
 ## ディレクトリ構成
 
 ```
