@@ -18,6 +18,38 @@ $ pip install -r requirements.txt
 $ python app.py 
 ```
 
+## セットアップ for Windows
+
+### フロントエンド
+
+nodeのバージョン管理ツール
+
+[nodist](https://github.com/nullivex/nodist)
+
+https://github.com/nullivex/nodist/releases からexeを取得
+
+コマンドプロンプトなどで以下
+
+```
+> nodist + 12.16.0   #最初だけ
+> nodist 12.16.0
+> node -v   # v12.16.0
+> git clone https://github.com/YukinoTerashima/vue-flask-todo.git
+> cd vue-flask-todo
+> cd frontend
+> npm install
+> npm run build
+```
+
+### バックエンド
+
+```
+>python -m venv venv
+>venv\Scripts\activate.bat
+>pip install -r requirements.txt
+>python app.py
+```
+
 ## ディレクトリ構成
 
 ```
@@ -40,6 +72,8 @@ $ python app.py
     ├── tests
     └── vue.config.js
  ```
+
+## 初期構築メモ
 
 ## フロントエンド
 
